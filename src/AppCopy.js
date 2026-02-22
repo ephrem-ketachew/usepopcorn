@@ -210,6 +210,11 @@ function NumList({ movies }) {
 }
 
 function Search({ query, setQuery }) {
+  // useEffect(function () {
+  //   const searchEl = document.querySelector(".search");
+  //   searchEl.focus();
+  // }, []);
+
   return (
     <input
       className="search"
