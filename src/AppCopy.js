@@ -228,6 +228,8 @@ function Search({ query, setQuery }) {
         }
       }
 
+      inputEl.current.focus();
+
       document.addEventListener("keydown", callback);
 
       return () => document.removeEventListener("keydown", callback);
@@ -294,6 +296,15 @@ function MovieDetails({ watched, selectedId, onCloseMovie, onAddWatched }) {
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
 
+  const countRef = useRef(0);
+
+  useEffect(
+    function () {
+      countRef.current = countRef.current + 1;
+    },
+    [userRating],
+  );
+
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
   const watchedUserRating = watched.find(
     (movie) => movie.imdbID === selectedId,
@@ -321,6 +332,7 @@ function MovieDetails({ watched, selectedId, onCloseMovie, onAddWatched }) {
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split("").at(0)),
       userRating,
+      countRatingDecisions: countRef.current,
     };
 
     onAddWatched(newWatchedMovie);
